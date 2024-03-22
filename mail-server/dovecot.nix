@@ -110,14 +110,15 @@ let
 
     for f in ${builtins.toString (lib.mapAttrsToList (name: value: passwordFiles."${name}") cfg.loginAccounts)}; do
       if [ ! -f "$f" ]; then
-        echo "Expected password hash file $f does not exist!"
+        echo "Expected password file $f does not exist!"
         exit 1
       fi
     done
 
     cat <<EOF > ${passwdFile}
+
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value:
-      "${name}:${"$(head -n 1 ${passwordFiles."${name}"})"}::::::"
+      "${name}:${"$(${pkgs.dovecot}/bin/doveadm pw -p \"$(head -n 1 ${passwordFiles."${name}"})\")"}::::::"
     ) cfg.loginAccounts)}
     EOF
 

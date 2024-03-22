@@ -68,12 +68,12 @@ pkgs.nixosTest {
 
               loginAccounts = {
                   "user1@example.com" = {
-                      hashedPassword = "$6$/z4n8AQl6K$kiOkBTWlZfBd7PvF5GsJ8PmPgdZsFGN1jPGZufxxr60PoR0oUsrvzm2oQiflyz5ir9fFJ.d/zKm/NgLXNUsNX/";
+                      password = "password";
                       aliases = [ "postmaster@example.com" ];
                       catchAll = [ "example.com" ];
                   };
                   "user@example2.com" = {
-                      hashedPassword = "$6$u61JrAtuI0a$nGEEfTP5.eefxoScUGVG/Tl0alqla2aGax4oTd85v3j3xSmhv/02gNfSemv/aaMinlv9j/ZABosVKBrRvN5Qv0";
+                      password = "password";
                   };
               };
               enableImap = true;
