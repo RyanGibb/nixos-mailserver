@@ -39,12 +39,12 @@ in
                    else throw "unknown certificate scheme";
 
   passwordFiles = let
-    mkHashFile = name: hash: pkgs.writeText "${builtins.hashString "sha256" name}-password-hash" hash;
+    mkHashFile = name: hash: pkgs.writeText "${builtins.hashString "sha256" name}-password" hash;
   in
     lib.mapAttrs (name: value:
-    if value.hashedPasswordFile == null then
-      builtins.toString (mkHashFile name value.hashedPassword)
-    else value.hashedPasswordFile) cfg.loginAccounts;
+    if value.passwordFile == null then
+      builtins.toString (mkHashFile name value.password)
+    else value.passwordFile) cfg.loginAccounts;
 
   # Appends the LDAP bind password to files to avoid writing this
   # password into the Nix store.

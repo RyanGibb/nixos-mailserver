@@ -70,11 +70,10 @@ common ones.
        fqdn = "mail.example.com";
        domains = [ "example.com" ];
 
-       # A list of all login accounts. To create the password hashes, use
-       # nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
+       # A list of all login accounts.
        loginAccounts = {
          "user1@example.com" = {
-           hashedPasswordFile = "/a/file/containing/a/hashed/password";
+           passwordFile = "/a/file/containing/a/password";
            aliases = ["postmaster@example.com"];
          };
          "user2@example.com" = { ... };

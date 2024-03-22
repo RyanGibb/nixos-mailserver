@@ -51,19 +51,20 @@ pkgs.nixosTest {
 
               loginAccounts = {
                   "user1@example.com" = {
-                      hashedPassword = "$6$/z4n8AQl6K$kiOkBTWlZfBd7PvF5GsJ8PmPgdZsFGN1jPGZufxxr60PoR0oUsrvzm2oQiflyz5ir9fFJ.d/zKm/NgLXNUsNX/";
+                      password = "password";
                       aliases = [ "postmaster@example.com" ];
                       catchAll = [ "example.com" ];
                   };
                   "user2@example.com" = {
-                      hashedPassword = "$6$u61JrAtuI0a$nGEEfTP5.eefxoScUGVG/Tl0alqla2aGax4oTd85v3j3xSmhv/02gNfSemv/aaMinlv9j/ZABosVKBrRvN5Qv0";
+                      password = "password";
+                      aliases = [ "postmaster@example.com" ];
                       aliases = [ "chuck@example.com" ];
                   };
                   "user@example2.com" = {
-                      hashedPassword = "$6$u61JrAtuI0a$nGEEfTP5.eefxoScUGVG/Tl0alqla2aGax4oTd85v3j3xSmhv/02gNfSemv/aaMinlv9j/ZABosVKBrRvN5Qv0";
+                      password = "password";
                   };
                   "lowquota@example.com" = {
-                      hashedPassword = "$6$u61JrAtuI0a$nGEEfTP5.eefxoScUGVG/Tl0alqla2aGax4oTd85v3j3xSmhv/02gNfSemv/aaMinlv9j/ZABosVKBrRvN5Qv0";
+                      password = "password";
                       quota = "1B";
                   };
               };
@@ -322,7 +323,7 @@ pkgs.nixosTest {
             Hello User1,
 
             this email contains the needle:
-            576a4565b70f5a4c1a0925cabdb587a6 
+            576a4565b70f5a4c1a0925cabdb587a6
           '';
           "root/email7".text = ''
             Message-ID: <1234578qwerty@host.local.network>

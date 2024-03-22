@@ -4,7 +4,7 @@
 
 let
     hashPassword = password: pkgs.runCommand
-      "password-${password}-hashed"
+      "password-${password}"
       { buildInputs = [ pkgs.mkpasswd ]; inherit password; }
       ''
         mkpasswd -sm bcrypt <<<"$password" > $out
@@ -22,7 +22,7 @@ let
         localDnsResolver = false;
         loginAccounts = {
           "user@${domain}" = {
-            hashedPasswordFile = hashPassword "password";
+            passwordFile = hashPassword "password";
           };
         };
         enableImap = true;

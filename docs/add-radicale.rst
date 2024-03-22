@@ -17,7 +17,7 @@ have to be used. These can still be generated using `mkpasswd -m bcrypt`.
      mailAccounts = config.mailserver.loginAccounts;
      htpasswd = pkgs.writeText "radicale.users" (concatStrings
        (flip mapAttrsToList mailAccounts (mail: user:
-         mail + ":" + user.hashedPassword + "\n"
+         mail + ":" + user.password + "\n"
        ))
      );
 
