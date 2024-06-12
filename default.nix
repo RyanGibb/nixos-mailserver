@@ -71,32 +71,24 @@ in
             description = "Username";
           };
 
-          hashedPassword = mkOption {
+          password = mkOption {
             type = with types; nullOr str;
             default = null;
             example = "$6$evQJs5CFQyPAW09S$Cn99Y8.QjZ2IBnSu4qf1vBxDRWkaIZWOtmu1Ddsm3.H3CFpeVc0JU4llIq8HQXgeatvYhh5O33eWG3TSpjzu6/";
             description = ''
-              The user's hashed password. Use `mkpasswd` as follows
-
-              ```
-              nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
-              ```
+              The user's password.
 
               Warning: this is stored in plaintext in the Nix store!
-              Use {option}`mailserver.loginAccounts.<name>.hashedPasswordFile` instead.
+              Use {option}`mailserver.loginAccounts.<name>.passwordFile` instead.
             '';
           };
 
-          hashedPasswordFile = mkOption {
+          passwordFile = mkOption {
             type = with types; nullOr path;
             default = null;
-            example = "/run/keys/user1-passwordhash";
+            example = "/run/keys/user1-password";
             description = ''
-              A file containing the user's hashed password. Use `mkpasswd` as follows
-
-              ```
-              nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
-              ```
+              A file containing the user's password.
             '';
           };
 
@@ -189,20 +181,15 @@ in
       }));
       example = {
         user1 = {
-          hashedPassword = "$6$evQJs5CFQyPAW09S$Cn99Y8.QjZ2IBnSu4qf1vBxDRWkaIZWOtmu1Ddsm3.H3CFpeVc0JU4llIq8HQXgeatvYhh5O33eWG3TSpjzu6/";
+          password = "password";
         };
         user2 = {
-          hashedPassword = "$6$oE0ZNv2n7Vk9gOf$9xcZWCCLGdMflIfuA0vR1Q1Xblw6RZqPrP94mEit2/81/7AKj2bqUai5yPyWE.QYPyv6wLMHZvjw3Rlg7yTCD/";
+          password = "password";
         };
       };
       description = ''
         The login account of the domain. Every account is mapped to a unix user,
-        e.g. `user1@example.com`. To generate the passwords use `mkpasswd` as
-        follows
-
-        ```
-        nix-shell -p mkpasswd --run 'mkpasswd -sm bcrypt'
-        ```
+        e.g. `user1@example.com`.
       '';
       default = {};
     };

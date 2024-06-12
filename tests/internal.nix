@@ -27,14 +27,13 @@ let
     '';
   };
 
-  hashPassword = password: pkgs.runCommand
-    "password-${password}-hashed"
-    { buildInputs = [ pkgs.mkpasswd ]; inherit password; } ''
-      mkpasswd -sm bcrypt <<<"$password" > $out
+  mkPasswordFile = password: pkgs.runCommand
+    "password-${password}"
+    { inherit password; } ''
+      echo "$password" > $out
     '';
 
-  hashedPasswordFile = hashPassword "my-password";
-  passwordFile = pkgs.writeText "password" "my-password";
+  passwordFile = mkPasswordFile "my-password";
 in
 pkgs.nixosTest {
   name = "internal";
@@ -60,14 +59,14 @@ pkgs.nixosTest {
 
         loginAccounts = {
           "user1@example.com" = {
-            hashedPasswordFile = hashedPasswordFile;
+            passwordFile = passwordFile;
           };
           "user2@example.com" = {
-            hashedPasswordFile = hashedPasswordFile;
+            passwordFile = passwordFile;
             aliasesRegexp = [''/^user2.*@domain\.com$/''];
           };
           "send-only@example.com" = {
-            hashedPasswordFile = hashPassword "send-only";
+            passwordFile = mkPasswordFile "send-only";
             sendOnly = true;
           };
         };
